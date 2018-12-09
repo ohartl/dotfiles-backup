@@ -1,0 +1,33 @@
+set autoindent
+set historylog
+set positionlog
+
+set constantshow
+set nonewlines
+set nowrap
+#set multibuffer
+
+set unix
+
+set tabsize 4
+set tabstospaces
+
+set smooth
+set morespace
+set mouse
+set rebinddelete
+set rebindkeypad
+
+set linenumbers
+set constantshow
+set keycolor red
+set functioncolor green
+set numbercolor brightyellow
+set statuscolor black,yellow
+
+include "/usr/share/nano/nanorc.nanorc"
+include "/usr/share/nano/patch.nanorc"
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/debian.nanorc"
+include "/usr/share/nano/makefile.nanorc"
+include "/usr/share/nano/json.nanorc"

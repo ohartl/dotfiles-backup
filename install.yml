@@ -1,0 +1,62 @@
+- defaults:
+    link:
+        relink: true
+
+
+# Make sure modules are uptodate
+- shell:
+    - git submodule update --init --recursive
+
+
+# Cleanup, but backup first
+- shell:
+    - test -f ~/.profile && mv ~/.profile ~/.profile.bak || true
+    - test -f ~/.bash_profile && test ! -h ~/.bash_profile && mv ~/.bash_profile ~/.bash_profile.bak || true
+
+
+# KeepCalm, this cleans dead links to dotfiles dir only!
+- clean: ['~']
+
+
+# Create symlinks
+- link:
+    # Make it installable everywhere, but always having a ~/.ditfiles symlink to this dir
+    ~/.dotfiles: ''
+
+    # For any shell
+    ~/.vars: files/.vars
+    ~/.aliases: files/.aliases
+
+    # ZSH
+    ~/.oh-my-zsh: modules/oh-my-zsh
+    ~/.zshrc: files/.zshrc
+
+    # Bash
+    ~/.bash_profile: files/.bash_profile
+    ~/.bashrc: files/.bashrc
+
+    # Git
+    ~/.gitconfig: files/.gitconfig
+    ~/.gitignore_global: files/.gitignore_global
+
+    # Editors
+    ~/.editorconfig: files/.editorconfig
+    ~/.vimrc: files/.vimrc
+    ~/.vim/colors/solarized.vim:
+        create: true
+        path: modules/vim-colors-solarized/colors/solarized.vim
+    ~/.nanorc: files/.nanorc
+
+
+# Extra stuff for ZSH
+- shell:
+    -
+        command: test -x /bin/zsh && sudo chsh -s /bin/zsh $(whoami) || echo "skipped because zsh is not installed"
+        stdin: true
+        stdout: true
+        stderr: true
+        description: Setting ZSH as default shell
+    -
+        command: test -x /bin/zsh && compaudit | xargs chmod g-w,o-w || echo "skipped because zsh is not installed"
+        description: Fixing file permissions of oh-my-zsh
+        
