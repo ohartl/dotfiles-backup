@@ -1,71 +1,97 @@
 [user]
-	name = Oliver Hartl
-	email = oliver@ohartl.de
-#	signingkey = ...
+    name = Oliver Hartl
+    email = oliver@ohartl.de
+    username = ohartl
+    #signingkey = ...
 
 [github]
-        user = ohartl
+    user = ohartl
 
 [alias]
-        a = add
-        s = status
-        b = branch
-        co = checkout
-        c = commit
-        d = diff
-        dc = diff --cached
-
-
+    a = add
+    s = status
+    b = branch
+    br = branch
+    co = checkout
+    c = commit
+    diff = diff --word-diff
+    d = diff --word-diff
+    dc = diff --cached --word-diff
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    m = merge --no-ff --
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    lasttag = describe --tags --abbrev=0
+    la = "!git config -l | grep alias | cut -c 7-"
+# https://gist.github.com/pksunkara/988716
 
 ################# less important stuff ############
 
 [core]
-	editor = vim
-	autocrlf = false
-	excludesfile = ~/.gitignore_global
+    editor = vim
+    #autocrlf = false
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+
+[push]
+    default = simple
+
+[pager]
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
+
+[interactive]
+    diffFilter = diff-highlight
 
 [color]
-        ui = auto
+    ui = always
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
 
 [commit]
-	verbose = true
-#    gpgsign = true
+    verbose = true
+    #gpgsign = true
 
 [tag]
-#    forceSignAnnotated = true
+    #forceSignAnnotated = true
 
 [apply]
-	# Detect whitespace errors when applying a patch
-	whitespace = fix
+    # Detect whitespace errors when applying a patch
+    whitespace = fix
 
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
 
 [help]
-	autocorrect = 1
+    autocorrect = 1
 
 # Use `origin` as the default remote on the `master` branch in all cases
 [branch "master"]
-	remote = origin
-	merge = refs/heads/master
+    remote = origin
+    merge = refs/heads/master
 
 # URL shorthands
 [url "git@github.com:"]
-	insteadOf = "gh:"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
+    insteadOf = "gh:"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
 [url "git://github.com/"]
-	insteadOf = "github:"
+    insteadOf = "github:"
 [url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
+    insteadOf = "gst:"
+    pushInsteadOf = "gist:"
+    pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
-	insteadOf = "gist:"
+    insteadOf = "gist:"
 
 
 
 ################# Allow local customizations in the ~/.gitconfig.local file ############
 
 [include]
-	path = .gitconfig.local
+    path = .gitconfig.local

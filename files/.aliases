@@ -8,12 +8,14 @@ function dfu() {
 
 # general commands
 alias ls='ls --color=auto'
-alias ll='ls -la'
+alias ll='ls -laF'
 alias la='ls -A'
-alias l='ls'
-#alias c='clear' used by composer :)
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias v='vim'
-
+alias diff='git diff --no-index'
 
 # basic directory operations
 alias ..='cd ..'
@@ -68,18 +70,19 @@ function in() {
 #alias g='git' by zsh
 alias gs='git status'
 alias gc='git commit'
-alias gl='git log --graph --decorate --all'
+alias glog='git log --graph --decorate --all'
+alias gl='glog'
 alias glatest='git tag | sort -V | tail -n 1'
-alias gclean='git remote prune origin && git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gclean='git remote prune origin && git branch --merged | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | egrep -v "(^\*|master|dev)" | grep -v "*" | xargs -r git branch -d'
 
 
 alias d='docker'
 alias dc='docker-compose'
 #alias dbuild='docker build ..'
+alias dclean='docker images -q --filter "dangling=true" | xargs docker rmi  > /dev/null 2>&1'
 
 
 # php dev commands
-#alias phing='$(git rev-parse --show-toplevel)vendor/bin/phing'
 function phing() {
     (
     git rev-parse --git-dir > /dev/null 2>&1
@@ -109,6 +112,7 @@ alias yolo="git commit -m '$(curl -s https://whatthecommit.com/index.txt)'"
 
 # less fuckery
 eval $(thefuck --alias)
+eval $(thefuck --alias f)
 
 
 # Auto sudo prefixes
