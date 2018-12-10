@@ -14,7 +14,7 @@ set tabstospaces
 
 set smooth
 set morespace
-set mouse
+#set mouse
 set rebinddelete
 set rebindkeypad
 
