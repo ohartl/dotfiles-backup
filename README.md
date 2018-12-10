@@ -61,6 +61,19 @@ Contains git submodules which are used to manage and run these dotfiles, but mig
 Configures what is run by the `./install` command
 
 
-## Update modules (git submodules)
+## Getting updates as a user
+
+Just run `git pull && ./install` and you should be fine
+
+
+## Maintenance for developer
+
+### git submodules
 
 `git submodule update --recursive --remote` or just `git submodule update --init --remote`, dont know yet :(
+
+### bin programms
+
+#### diff-highlight
+1. On an up to date git installation, find the deployed a version `find -L /usr -name diff-highlight -type f`
+2. Copy the version `cp /usr/.../diff-highlight bin/diff-highlight` and commit

@@ -32,20 +32,29 @@
     #autocrlf = false
     autocrlf = input
     excludesfile = ~/.gitignore_global
+    pager = ~/.dotfiles/bin/diff-highlight | less
 
 [push]
     default = simple
 
 [pager]
-    log = diff-highlight | less
-    show = diff-highlight | less
-    diff = diff-highlight | less
+    log = ~/.dotfiles/bin/diff-highlight | less
+    show = ~/.dotfiles/bin/diff-highlight | less
+    diff = ~/.dotfiles/bin/diff-highlight | less
 
 [interactive]
-    diffFilter = diff-highlight
+    diffFilter = ~/.dotfiles/bin/diff-highlight
 
 [color]
     ui = always
+
+[color "diff"]
+    commit = green
+    meta = yellow
+    frag = cyan
+    old = red
+    new = green
+    whitespace = red reverse
 
 [color "diff-highlight"]
     oldNormal = red bold
