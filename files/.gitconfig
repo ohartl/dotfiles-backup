@@ -4,8 +4,6 @@
     username = ohartl
     #signingkey = ...
 
-[github]
-    user = ohartl
 
 [alias]
     a = add
@@ -31,8 +29,8 @@
     editor = vim
     #autocrlf = false
     autocrlf = input
+    #whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
     excludesfile = ~/.gitignore_global
-    pager = ~/.dotfiles/bin/diff-highlight | less
 
 [push]
     default = simple
