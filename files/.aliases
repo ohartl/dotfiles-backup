@@ -73,7 +73,7 @@ alias gc='git commit'
 alias glog='git log --graph --decorate --all'
 alias gl='glog'
 alias glatest='git tag | sort -V | tail -n 1'
-alias gclean='git remote prune origin && git branch --merged | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | egrep -v "(^\*|master|dev)" | grep -v "*" | xargs -r git branch -d'
+alias gclean='git-remove-merged-branches'
 
 
 alias d='docker'
