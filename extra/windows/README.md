@@ -2,6 +2,12 @@
 
 ## Setup
 
+### Fix Keyboard inputs via Putty
+
+Change the "Terminal-type string" setting for every Putty Session you use.
+
+![1544618587289](Z:\code\dotfiles\extra\windows\README.assets\1544618587289.png)
+
 ### Putty Theme
 
 Execute `putty_solarized_dark.reg`
