@@ -15,6 +15,7 @@ export ZSH=$HOME/.dotfiles/modules/oh-my-zsh
 
 # ZSH Settings
 #####################################################################
+
 # Set automatic cd (typing directory name with no 'cd')
 setopt autocd
 
@@ -38,7 +39,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="yyyy-mm-dd"
 
 # Plugins for oh-my-zsh. Too many plugins slow down shell startup
-plugins=(git docker composer phing)
+plugins=(autojump git docker docker-compose composer phing)
+
+# Make autojump plugin work on WSL
+unsetopt BG_NICE
+
 #####################################################################
 
 

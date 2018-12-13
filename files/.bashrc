@@ -18,6 +18,7 @@ source ~/.vars
 
 # BASH Settings
 #####################################################################
+
 # Ignore case during tab completion.
 bind 'set completion-ignore-case on'
 
@@ -27,6 +28,7 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
+
 #####################################################################
 
 
