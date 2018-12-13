@@ -1,0 +1,11 @@
+[user]
+    name = Oliver Hartl
+    email = oliver@ohartl.de
+    username = ohartl
+    #signingkey = ...
+
+[commit]
+    #gpgsign = true
+
+[tag]
+    #forceSignAnnotated = true

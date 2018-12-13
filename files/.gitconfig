@@ -1,8 +1,9 @@
-[user]
-    name = Oliver Hartl
-    email = oliver@ohartl.de
-    username = ohartl
-    #signingkey = ...
+# This should be set via your ~/.gitconfig.local file
+#
+#[user]
+#    name = Firstname Lastname
+#    email = your@email.local
+#    username = yourusername
 
 
 [alias]
@@ -62,10 +63,6 @@
 
 [commit]
     verbose = true
-    #gpgsign = true
-
-[tag]
-    #forceSignAnnotated = true
 
 [apply]
     # Detect whitespace errors when applying a patch
@@ -101,4 +98,5 @@
 ################# Allow local customizations in the ~/.gitconfig.local file ############
 
 [include]
+    path = ~/.dotfiles/files/.gitconfig.ohartl
     path = .gitconfig.local
