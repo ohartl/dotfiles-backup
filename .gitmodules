@@ -7,3 +7,6 @@
 [submodule "modules/vim-colors-solarized"]
 	path = modules/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
+[submodule "modules/nanorc-syntax"]
+	path = modules/nanorc-syntax
+	url = https://github.com/scopatz/nanorc

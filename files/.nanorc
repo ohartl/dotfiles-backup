@@ -22,9 +22,4 @@ set functioncolor green
 set numbercolor brightyellow
 set statuscolor black,yellow
 
-include "/usr/share/nano/nanorc.nanorc"
-include "/usr/share/nano/patch.nanorc"
-include "/usr/share/nano/sh.nanorc"
-include "/usr/share/nano/debian.nanorc"
-include "/usr/share/nano/makefile.nanorc"
-include "/usr/share/nano/json.nanorc"
+include "~/.dotfiles/modules/nanorc-syntax/*.nanorc"
