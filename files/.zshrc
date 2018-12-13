@@ -5,6 +5,20 @@
 source ~/.vars
 
 
+# Override logic for theme default usernames (used in i.e. prompt context)
+if [ -z ${DEFAULT_USER+x} ]; then
+    if [ -z ${DEFAULT_USERNAMES+x} ]; then
+        if [ ! -z ${OHARTL_USERNAMES+x} ]; then
+            DEFAULT_USERNAMES=("${OHARTL_USERNAMES[@]}");
+        fi
+    fi
+    DEFAULT_USER=${DEFAULT_USERNAMES[0]}
+else
+    # isset already set so use it
+    DEFAULT_USERNAMES=("$DEFAULT_USER")
+fi
+
+
 # Path to the oh-my-zsh installation
 export ZSH=$HOME/.dotfiles/modules/oh-my-zsh
 
@@ -50,6 +64,15 @@ unsetopt BG_NICE
 # Start oh-my-zsh with settings
 source $ZSH/oh-my-zsh.sh
 
+
+# fix for agnoster theme prompt context
+if [[ "$ZSH_THEME" == "agnoster" ]]; then
+    prompt_context() {
+        if [[ ! ${DEFAULT_USERNAMES[*]} =~ "$USER" || -n "$SSH_CLIENT" ]]; then
+            prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
+        fi
+    }
+fi
 
 # Aliases
 source ~/.aliases
