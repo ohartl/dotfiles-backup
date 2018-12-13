@@ -21,7 +21,7 @@ fi
 
 # Path to the oh-my-zsh installation
 export ZSH=$HOME/.dotfiles/modules/oh-my-zsh
-
+ZSH_DISABLE_COMPFIX=true
 
 # Allow local customizations in the ~/.zshrc_before.local file
 [ -f ~/.zshrc_before.local ] && source ~/.zshrc_before.local
