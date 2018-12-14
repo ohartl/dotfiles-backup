@@ -6,14 +6,19 @@ function dfu() {
 }
 
 
-# general commands
-alias ls='ls --color=auto'
-alias ll='ls -laF'
-alias la='ls -A'
-alias l='ls -CF'
+# colored commands
+if type dircolors > /dev/null; then
+    eval "`dircolors`"
+    alias ls='ls --color=auto'
+fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+# general commands
+alias ll='ls -laF'
+alias la='ls -A'
+alias l='ls -CF'
 alias v='vim'
 alias diff='git diff --no-index'
 
