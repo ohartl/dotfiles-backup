@@ -2,14 +2,69 @@
 
 set -e
 
-CONFIG="install.yml"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    OSTYPE_BASE="unix"; OSTYPE_SHORT="linux"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    OSTYPE_BASE="unix"; OSTYPE_SHORT="macos"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    # POSIX compatibility layer and Linux environment emulation for Windows
+    exit 1
+elif [[ "$OSTYPE" == "msys" ]]; then
+    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    exit 1
+elif [[ "$OSTYPE" == "win32" ]]; then
+    # I'm not sure this can happen.
+    exit 1
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+    # ...
+    exit 1
+else
+    # Unknown.
+    exit 1
+fi
+
+BASE_CONFIG="base"
+CONFIG_SUFFIX=".yml"
+
+META_DIR="meta"
+CONFIG_DIR="configs"
+PROFILES_DIR="profiles"
+
 DOTBOT_DIR="modules/dotbot"
-
 DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+if [ -z "${1+x}" ]; then
+    PROFILE_NAME="workstation"
+else
+    PROFILE_NAME="$1"
+    shift
+fi
+echo -e "=========\nConfigure profile ${PROFILE_NAME} for os ${OSTYPE_SHORT}\n=========\n"
+
+# ---------------
+
+cd "${BASE_DIR}"
+git submodule update --init --recursive --remote
+
+metaSubDirs=(
+    "${OSTYPE_BASE}"
+    "${OSTYPE_BASE}_${OSTYPE_SHORT}"
+)
+
+for metaSub in "${metaSubDirs[@]}"; do
+    CONFIGS=""
+    if [ -f "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}" ]; then
+        while IFS= read -r config; do
+            CONFIGS+=" ${config}"
+        done < "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}"
+    fi
+
+    "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${BASE_CONFIG}${CONFIG_SUFFIX}"
+
+    for config in ${CONFIGS} ${@}; do
+        echo -e "\nConfigure ${config} for ${metaSub}"
+        "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}"
+    done
+done
