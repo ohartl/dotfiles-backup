@@ -35,6 +35,13 @@ DOTBOT_BIN="bin/dotbot"
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+if [ ! -z "${1+x}" ] && [ "-q" == "$1" ]; then
+    QUIET=true
+    shift
+else
+    QUIET=false
+fi
+
 if [ -z "${1+x}" ]; then
     if [ -f ~/.dotfiles.use_profile ]; then
         PROFILE_NAME=$(cat ~/.dotfiles.use_profile)
@@ -66,10 +73,10 @@ for metaSub in "${metaSubDirs[@]}"; do
         done < "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}"
     fi
 
-    "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${BASE_CONFIG}${CONFIG_SUFFIX}"
+    "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${BASE_CONFIG}${CONFIG_SUFFIX}" $($QUIET && echo "-q")
 
     for config in ${CONFIGS} ${@}; do
-        echo -e "\nConfigure ${config} for ${metaSub}"
-        "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}"
+        $QUIET || echo -e "\nConfigure ${config} for ${metaSub}"
+        "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}" $($QUIET && echo "-q")
     done
 done
