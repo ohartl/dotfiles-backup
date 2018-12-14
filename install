@@ -36,9 +36,15 @@ DOTBOT_BIN="bin/dotbot"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ -z "${1+x}" ]; then
-    PROFILE_NAME="workstation"
+    if [ -f ~/.dotfiles.use_profile ]; then
+        PROFILE_NAME=$(cat ~/.dotfiles.use_profile)
+    else
+        PROFILE_NAME="workstation"
+        echo "${PROFILE_NAME}" > ~/.dotfiles.use_profile
+    fi
 else
     PROFILE_NAME="$1"
+    echo "${PROFILE_NAME}" > ~/.dotfiles.use_profile
     shift
 fi
 echo -e "=========\nConfigure profile ${PROFILE_NAME} for os ${OSTYPE_SHORT}\n=========\n"
@@ -52,7 +58,6 @@ metaSubDirs=(
     "${OSTYPE_BASE}"
     "${OSTYPE_BASE}_${OSTYPE_SHORT}"
 )
-
 for metaSub in "${metaSubDirs[@]}"; do
     CONFIGS=""
     if [ -f "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}" ]; then
