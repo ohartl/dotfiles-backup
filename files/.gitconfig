@@ -36,6 +36,9 @@
 [push]
     default = simple
 
+[diff]
+    ignoreSubmodules = dirty
+
 [pager]
     log = ~/.dotfiles/bin/diff-highlight | less
     show = ~/.dotfiles/bin/diff-highlight | less
