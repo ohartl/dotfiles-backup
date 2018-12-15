@@ -1,12 +1,16 @@
 [submodule "modules/dotbot"]
 	path = modules/dotbot
 	url = https://github.com/anishathalye/dotbot
+	ignore = dirty
 [submodule "modules/oh-my-zsh"]
 	path = modules/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh
+	ignore = dirty
 [submodule "modules/vim-colors-solarized"]
 	path = modules/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
+	ignore = dirty
 [submodule "modules/nanorc-syntax"]
 	path = modules/nanorc-syntax
 	url = https://github.com/scopatz/nanorc
+	ignore = dirty
