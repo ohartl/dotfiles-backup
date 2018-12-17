@@ -1,0 +1,9 @@
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- shell:
+    -
+        command: sudo cp ~/.dotfiles/files/unix_linux_wsl/wsl.conf /etc/wsl.conf
+        description: Ensure wsl config with nice defaults

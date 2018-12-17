@@ -2,8 +2,14 @@
 
 set -e
 
+OSTYPE_IS_WSL=false
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     OSTYPE_BASE="unix"; OSTYPE_SHORT="linux"
+
+    if [[ "$(uname -r)" =~ "Microsoft" ]]; then
+        # WSL (Windows Subsystem for Linux; Bash for Windows)
+        OSTYPE_IS_WSL=true
+    fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     OSTYPE_BASE="unix"; OSTYPE_SHORT="macos"
 elif [[ "$OSTYPE" == "cygwin" ]]; then
@@ -22,6 +28,8 @@ else
     # Unknown.
     exit 1
 fi
+
+# ---------------
 
 BASE_CONFIG="base"
 CONFIG_SUFFIX=".yml"
@@ -65,6 +73,11 @@ metaSubDirs=(
     "${OSTYPE_BASE}"
     "${OSTYPE_BASE}_${OSTYPE_SHORT}"
 )
+
+if [ "$OSTYPE_IS_WSL" = true ]; then
+    metaSubDirs+=("${OSTYPE_BASE}_${OSTYPE_SHORT}_wsl")
+fi
+
 for metaSub in "${metaSubDirs[@]}"; do
     CONFIGS=""
     if [ -f "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}" ]; then
