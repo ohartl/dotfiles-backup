@@ -1,5 +1,7 @@
 # WSL
 
+- FAQ: https://docs.microsoft.com/en-us/windows/wsl/about
+
 ## Setup
 
 ### WSL Config `/etc/wsl.conf`

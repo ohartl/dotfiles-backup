@@ -3,6 +3,7 @@
 if [ -z "${IDE_PATH+z}" ]; then
     echo "Missing env var IDE_PATH, please define this in your ~/.vars.local file"
     echo "The IDE needs to be able to be started with `/path/to/ide [path][:line_num]`"
+    echo "i.e. https://www.jetbrains.com/help/phpstorm/opening-files-from-command-line.html"
     exit 1
 fi
 
