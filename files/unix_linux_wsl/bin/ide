@@ -30,7 +30,7 @@ for windowsDrive in $(mount -l | grep -Eo '^[A-Z]+\: on \/[a-z]+ type drvfs' | c
     fi
 done
 
-if [[ "$isWindowsDrive" == false ]]; then
+if [ "$isWindowsDrive" = false ]; then
     echo "Cannot open IDE in Windows for none Windows drives"
     exit 1
 fi
