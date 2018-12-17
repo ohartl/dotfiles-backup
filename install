@@ -12,20 +12,23 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     OSTYPE_BASE="unix"; OSTYPE_SHORT="macos"
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-    # POSIX compatibility layer and Linux environment emulation for Windows
-    exit 1
-elif [[ "$OSTYPE" == "msys" ]]; then
-    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
-    exit 1
-elif [[ "$OSTYPE" == "win32" ]]; then
-    # I'm not sure this can happen.
-    exit 1
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
-    # ...
-    exit 1
+#elif [[ "$OSTYPE" == "cygwin" ]]; then
+#    # POSIX compatibility layer and Linux environment emulation for Windows
+#    exit 1
+#elif [[ "$OSTYPE" == "msys" ]]; then
+#    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+#    exit 1
+#elif [[ "$OSTYPE" == "win32" ]]; then
+#    # I'm not sure this can happen.
+#    exit 1
+#elif [[ "$OSTYPE" == "freebsd"* ]]; then
+#    # ...
+#    exit 1
+#else
+#    # Unknown.
+#    exit 1
 else
-    # Unknown.
+    echo "OS or setup currently not supported, feel free to add support yourself"
     exit 1
 fi
 
