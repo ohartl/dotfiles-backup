@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+line=""
+if [ -z "$1" ]; then
+    path="$(pwd)"
+else
+    path="$1"
+    if [ -z "$2" ]; then
+        # try getting line from end of file name
+        line="$(echo $1 | grep -Po '(?:(?<=\:))[0-9]+$')"
+        if [ ! -z "$line" ]; then
+            path="${path/:$line/}"
+        fi
+    else
+        line="$(($2 + 0))"
+    fi
+fi
+
+path="$(readlink --canonicalize "$path")"
+
+if [ ! -e "$path" ]; then
+    echo "Given location doesn't exist"
+    exit 1
+fi
+
+isWindowsDrive=false
+for windowsDrive in $(mount -l | grep -Eo '^[A-Z]+\: on \/[a-z]+ type drvfs' | cut -d' ' -f3); do
+    if [[ "$path" == $windowsDrive/* ]]; then
+        isWindowsDrive=true
+    fi
+done
+
+if [[ "$isWindowsDrive" == false ]]; then
+    echo "Cannot open IDE in Windows for none Windows drives"
+    exit 1
+fi
+
+windowsPath="$(/bin/wslpath -a -w "$path")"
+
+echo "Opening ${windowsPath} in your IDE"
+
+if [ -z "$line" ]; then
+    eval "${IDE_PATH} '${windowsPath}' &"
+else
+    eval "${IDE_PATH} '${windowsPath}:${line}' &"
+fi

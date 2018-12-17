@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ -z "${IDE_PATH+z}" ]; then
+    echo "Missing env var IDE_PATH, please define this in your ~/.vars.local file"
+    echo "The IDE needs to be able to be started with `/path/to/ide [path][:line_num]`"
+    exit 1
+fi
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if [[ "$(uname -r)" =~ "Microsoft" ]]; then
+        ~/.dotfiles/files/unix_linux_wsl/bin/ide $@
+    else
+        echo "Not yet implemented for normal linux"
+        exit 1
+    fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Not yet implemented for macos"
+    exit 1
+else
+    echo "Unsupported OS for this script"
+    exit 1
+fi
