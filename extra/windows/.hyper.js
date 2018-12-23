@@ -5,7 +5,7 @@ module.exports = {
     updateChannel: 'stable', // either `'stable'` or `'canary'`
 
     fontSize: 12,
-    fontFamily: '"Fire Code for Powerline", "DejaVu Sans Mono for Powerline", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+    fontFamily: '"Fira Mono for Powerline"',
     fontWeight: 'normal',
     fontWeightBold: 'bold',
     cursorColor: 'rgba(248,28,229,0.8)',
@@ -46,7 +46,6 @@ module.exports = {
     "hyper-systray",
     "hyper-search",
     "hypercwd",
-    "hyper-quit",
   ],
 
   keymaps: {},
