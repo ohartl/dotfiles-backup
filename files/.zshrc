@@ -68,7 +68,7 @@ source $ZSH/oh-my-zsh.sh
 # fix for agnoster theme prompt context
 if [[ "$ZSH_THEME" == "agnoster" ]]; then
     prompt_context() {
-        if [[ ! ${DEFAULT_USERNAMES[*]} =~ "$USER" || -n "$SSH_CLIENT" ]]; then
+        if [[ ! ${DEFAULT_USERNAMES[*]} =~ "$USER" ]]; then
             prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
         fi
     }
