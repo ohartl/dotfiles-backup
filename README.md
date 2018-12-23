@@ -63,7 +63,7 @@ Configures what is run by the `./install` command
 
 ## Getting updates as a user
 
-Just run `git pull && ./install` and you should be fine
+Just run `dfu` from anywhere within the shell (`[d]ot[f]iles [u]date`).
 
 
 ## Maintenance for developer
