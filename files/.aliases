@@ -111,10 +111,6 @@ function phing() {
 alias p='phing'
 
 
-# fun
-alias yolo="git commit -m '$(curl -s https://whatthecommit.com/index.txt)'"
-
-
 # less fuckery
 eval $(thefuck --alias)
 eval $(thefuck --alias f)
