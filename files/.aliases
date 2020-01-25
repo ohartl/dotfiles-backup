@@ -38,6 +38,7 @@ alias mv='mv -v'
 alias rm='rm -i -v'
 alias cp='cp -v'
 alias chmox='sudo chmod +x'
+alias chome='sudo chown $(id -u):$(id -g)'
 
 
 # Jump to directory containing file
