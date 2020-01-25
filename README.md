@@ -66,7 +66,9 @@ Configures what is run by the `./install` command
 Just run `dfu` from anywhere within the shell (`[d]ot[f]iles [u]date`).
 
 
-## Maintenance for developer
+## Maintenance of the repo
+
+Updating dependencies etc.
 
 ### git submodules
 
