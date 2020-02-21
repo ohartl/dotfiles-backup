@@ -1,0 +1,4 @@
+# personal settings of ohartl, can always be overridden
+
+# overriden with DEFAULT_USERNAME or DEFAULT_USER
+OHARTL_USERNAMES=(oliver ohartl oliver.hartl hartl)

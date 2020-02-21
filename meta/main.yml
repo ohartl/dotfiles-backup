@@ -1,0 +1,14 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true
+
+- clean: ['~']
+
+- create:
+    - ~/downloads
+    - ~/code
+#
+- shell:
+    - [sudo git submodule update --init --recursive, Installing submodules]
