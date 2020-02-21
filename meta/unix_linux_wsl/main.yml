@@ -1,0 +1,17 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true
+
+- shell:
+    - command: sudo cp ~/.dotfiles/dotfiles/unix_linux_wsl/wsl.conf /etc/wsl.conf
+      description: Ensure wsl config with nice defaults
+
+# @overrides
+#   `create: [/code]` of `../main.yml`
+#   symlinks to /e/code mount on wsl
+- clean:
+    - '/code'
+- link:
+    /code: '/e/code'

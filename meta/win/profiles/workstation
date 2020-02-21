@@ -1,9 +1,9 @@
 # local-base
-# editors
+editors
 editor-config
 curl
 bash
-zsh
+# zsh
 # ops
 git
 hardware-info-pack

@@ -1,0 +1,1 @@
+# list pack {{name}}s from `./meta/*/packs/{{name}}.yml` - see `make packs`

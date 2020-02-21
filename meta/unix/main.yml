@@ -1,7 +1,8 @@
 - defaults:
-    link:
-        create: true
-        relink: true
+      link:
+          create: true
+          relink: true
+          force: true
 
 - shell:
     - ["git submodule update --init --recursive", "Installing submodules"]
@@ -13,9 +14,9 @@
 
 # Create symlinks
 - link:
-    # Make it installable everywhere, but always having a ~/.ditfiles symlink to this dir
+    # Make it installable everywhere, but always having a ~/.dotfiles symlink to this dir
     ~/.dotfiles: ''
 
     # For any shell
-    ~/.vars: files/.vars
-    ~/.aliases: files/.aliases
+    ~/.vars: dotfiles/basic/.vars
+    ~/.aliases: dotfiles/basic/.aliases

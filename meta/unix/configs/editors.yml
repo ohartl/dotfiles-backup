@@ -1,7 +1,0 @@
-- link:
-    ~/.editorconfig: files/.editorconfig
-    ~/.vimrc: files/.vimrc
-    ~/.vim/colors/solarized.vim:
-        create: true
-        path: modules/vim-colors-solarized/colors/solarized.vim
-    ~/.nanorc: files/.nanorc

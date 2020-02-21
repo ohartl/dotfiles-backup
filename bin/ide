@@ -9,7 +9,7 @@ fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if [[ "$(uname -r)" =~ "Microsoft" ]]; then
-        ~/.dotfiles/files/unix_linux_wsl/bin/ide $@
+        ~/.dotfiles/dotfiles/unix_linux_wsl/bin/ide $@
     else
         echo "Not yet implemented for normal linux"
         exit 1

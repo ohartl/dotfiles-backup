@@ -1,0 +1,22 @@
+- defaults:
+      link:
+          create: true
+          relink: true
+          force: true
+
+- shell:
+    - ["git submodule update --init --recursive", "Installing submodules"]
+
+# KeepCalm, this cleans dead links to dotfiles dir only!
+- clean:
+    - '~'
+    - '~/.config'
+
+# Create symlinks
+- link:
+    # Make it installable everywhere, but always having a ~/.dotfiles symlink to this dir
+    ~/.dotfiles: ''
+
+#    # For any shell
+#    ~/.vars: dotfiles/basic/.vars
+#    ~/.aliases: dotfiles/basic/.aliases

@@ -6,3 +6,22 @@
    * https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898
    * https://gist.github.com/jvandyke/4355099
 * [ ] Maybe use https://github.com/andy-5/wslgit from Windows
+* [ ] https://github.com/mathiasbynens/dotfiles
+
+## k8s
+- k3s
+- alternatives to docker: rkt, ..
+- k3OS
+- 
+
+## tools
+
+### `pack-anybody`
+
+### `pack-webdev`
+- yarn
+- dart + flutter? + .. als basis?
+- material design flutter components
+- 
+
+### role:

@@ -1,0 +1,3 @@
+
+- shell:
+      - [$(yarn global bin)/remove-github-forks]

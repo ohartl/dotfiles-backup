@@ -1,7 +1,13 @@
+- defaults:
+      link:
+          create: true
+          relink: true
+          force: true
+
 - shell:
     - test -f ~/.profile && test ! -f ~/.profile.bak && mv ~/.profile ~/.profile.bak || true
     - test -f ~/.bash_profile && test ! -f ~/.bash_profile.bak && test ! -h ~/.bash_profile && mv ~/.bash_profile ~/.bash_profile.bak || true
 
 - link:
-    ~/.bash_profile: files/.bash_profile
-    ~/.bashrc: files/.bashrc
+    ~/.bash_profile: dotfiles/.bash_profile
+    ~/.bashrc: dotfiles/.bashrc

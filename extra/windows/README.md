@@ -6,7 +6,7 @@
 
 Change the "Terminal-type string" setting for every Putty Session you use.
 
-![1544618587289](README.assets/1544618587289.png)
+![Screenshot: Putty Configuration](README.assets/1544618587289.png)
 
 ### Putty Theme
 

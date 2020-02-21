@@ -2,97 +2,96 @@
 
 set -e
 
-OSTYPE_IS_WSL=false
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    OSTYPE_BASE="unix"; OSTYPE_SHORT="linux"
-
-    if [[ "$(uname -r)" =~ "Microsoft" ]]; then
-        # WSL (Windows Subsystem for Linux; Bash for Windows)
-        OSTYPE_IS_WSL=true
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    OSTYPE_BASE="unix"; OSTYPE_SHORT="macos"
-#elif [[ "$OSTYPE" == "cygwin" ]]; then
-#    # POSIX compatibility layer and Linux environment emulation for Windows
-#    exit 1
-#elif [[ "$OSTYPE" == "msys" ]]; then
-#    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
-#    exit 1
-#elif [[ "$OSTYPE" == "win32" ]]; then
-#    # I'm not sure this can happen.
-#    exit 1
-#elif [[ "$OSTYPE" == "freebsd"* ]]; then
-#    # ...
-#    exit 1
-#else
-#    # Unknown.
-#    exit 1
-else
-    echo "OS or setup currently not supported, feel free to add support yourself"
-    exit 1
-fi
-
 # ---------------
-
-BASE_CONFIG="base"
-CONFIG_SUFFIX=".yml"
-
-META_DIR="meta"
-CONFIG_DIR="configs"
-PROFILES_DIR="profiles"
-
-DOTBOT_DIR="modules/dotbot"
-DOTBOT_BIN="bin/dotbot"
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ ! -z "${1+x}" ] && [ "-q" == "$1" ]; then
-    QUIET=true
-    shift
-else
-    QUIET=false
-fi
+META_DIR="${BASE_DIR}/meta"
 
+# ---------------
+
+QUIET=false
+VERBOSE=0
+while getopts :hqv opt 2>/dev/null; do
+    case $opt in
+    h)
+        show_help
+        exit
+        ;;
+    q)
+        QUIET=true
+        ;;
+    v)
+        VERBOSE=1
+        ;;
+    :)
+        echo "Missing argument for option -$OPTARG"
+        exit 1
+        ;;
+    ?)
+        echo "Unknown option -$OPTARG"
+        exit 1
+        ;;
+    esac
+done
+
+[ $QUIET ] && echo -e "quiet mode on"
+[ $VERBOSE ] && echo -e "verbose mode on"
+
+BIN_DOTBOT="${BASE_DIR}/modules/dotbot/bin/dotbot $([ $QUIET ] && echo "-q") $([ $VERBOSE ] && echo "-v") -d ${BASE_DIR}"
+BIN_OSDETECT="${BASE_DIR}/bin/osdetection"
+
+# ---------------
+
+. "$BIN_OSDETECT"
+
+# detect user defined dotfiles profile
 if [ -z "${1+x}" ]; then
     if [ -f ~/.dotfiles.use_profile ]; then
         PROFILE_NAME=$(cat ~/.dotfiles.use_profile)
     else
         PROFILE_NAME="workstation"
-        echo "${PROFILE_NAME}" > ~/.dotfiles.use_profile
+        $QUIET && echo "${PROFILE_NAME}" >~/.dotfiles.use_profile
     fi
 else
     PROFILE_NAME="$1"
-    echo "${PROFILE_NAME}" > ~/.dotfiles.use_profile
+    $QUIET && echo "${PROFILE_NAME}" >~/.dotfiles.use_profile
     shift
 fi
-echo -e "=========\nConfigure profile ${PROFILE_NAME} for os ${OSTYPE_SHORT}\n=========\n"
+
+$QUIET && echo -e "=========\nConfigure profile ${PROFILE_NAME} for os ${OS_SHORT}\n"
+$QUIET && echo -e "   - os-base: ${OS_BASE}"
+$QUIET && echo -e "   - os: ${OS_SHORT}"
+systemRoles=(
+    "${OS_BASE}"
+    "${OS_BASE}_${OS_SHORT}"
+)
+
+if [ "$OS_IS_WSL" = "wsl" ]; then
+    systemRoles+=("${OS_BASE}_${OS_SHORT}_wsl")
+    $QUIET || echo -e "   - subsystem: ${OS_IS_WSL}"
+fi
+
+echo -e "\n=========\n"
 
 # ---------------
 
 cd "${BASE_DIR}"
 git submodule update --init --recursive --remote
 
-metaSubDirs=(
-    "${OSTYPE_BASE}"
-    "${OSTYPE_BASE}_${OSTYPE_SHORT}"
-)
+bash -c "${BIN_DOTBOT} -c ${META_DIR}/main.yml"
 
-if [ "$OSTYPE_IS_WSL" = true ]; then
-    metaSubDirs+=("${OSTYPE_BASE}_${OSTYPE_SHORT}_wsl")
-fi
+for systemRole in "${systemRoles[@]}"; do
 
-for metaSub in "${metaSubDirs[@]}"; do
-    CONFIGS=""
-    if [ -f "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}" ]; then
-        while IFS= read -r config; do
-            CONFIGS+=" ${config}"
-        done < "${META_DIR}/${metaSub}/${PROFILES_DIR}/${PROFILE_NAME}"
+    bash -c "${BIN_DOTBOT} -c ${META_DIR}/${systemRole}/main.yml"
+
+    profile="${META_DIR}/${systemRole}/profiles/${PROFILE_NAME}"
+    if [ -f "${profile}" ]; then
+        while IFS= read -r pack; do
+            if [[ $pack != *"#"* ]]; then
+                $QUIET || echo -e "\nConfigure pack ${pack} for ${systemRole}"
+                bash -c "${BIN_DOTBOT} -c ${BASE_DIR}/packs/${pack}/main.yml"
+            fi
+        done <"${profile}"
     fi
-
-    "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${BASE_CONFIG}${CONFIG_SUFFIX}" $($QUIET && echo "-q")
-
-    for config in ${CONFIGS} ${@}; do
-        $QUIET || echo -e "\nConfigure ${config} for ${metaSub}"
-        "${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASE_DIR}" -c "${META_DIR}/${metaSub}/${CONFIG_DIR}/${config}${CONFIG_SUFFIX}" $($QUIET && echo "-q")
-    done
 done

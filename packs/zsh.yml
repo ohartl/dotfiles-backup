@@ -1,6 +1,12 @@
+- defaults:
+      link:
+          create: true
+          relink: true
+          force: true
+
 - link:
     ~/.oh-my-zsh: modules/oh-my-zsh
-    ~/.zshrc: files/.zshrc
+    ~/.zshrc: dotfiles/.zshrc
 
 - shell:
     -
