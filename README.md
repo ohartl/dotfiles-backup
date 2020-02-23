@@ -6,6 +6,7 @@ Compatible OS:
  * macOS
  * debian / ubuntu
  * WSL (Windows Subsystem for Linux) boxes
+ * #TODO Windows 10
 
 Compatible work scenarios:
  * dev envirnoment with docker
@@ -15,8 +16,6 @@ Compatible work scenarios:
 ## Getting started
 
 ```bash
-mkdir -p ~/src
-cd ~/src
 git clone https://github.com/ohartl/dotfiles.git
 cd dotfiles
 ./install

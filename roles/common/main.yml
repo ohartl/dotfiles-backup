@@ -1,0 +1,28 @@
+---
+
+#- shell:
+#  - ["git submodule update --init --recursive", "Installing submodules"]
+
+# KeepCalm, this cleans dead links to dotfiles dir only!
+#- clean:
+#  - '~'
+#  - '~/.config'
+
+# Make it installable everywhere, but always having a ~/.dotfiles symlink to this dir
+- hosts: localhost
+  tasks:
+    - name: Create dotfiles symlink
+      description:
+      file:
+        src: "{{ playbook_dir }}"
+        dest: "~/.dotfiles"
+        state: link
+
+    - name: Create other symlinks
+      file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      loop:
+        - { src: ~/.vars, dest: files/.vars }
+        - { src: ~/.aliases, dest: files/.aliases }

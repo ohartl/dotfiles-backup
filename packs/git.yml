@@ -1,9 +1,0 @@
-- defaults:
-      link:
-          create: true
-          relink: true
-          force: true
-
-- link:
-    ~/.gitconfig: dotfiles/.gitconfig
-    ~/.gitignore_global: dotfiles/.gitignore_global

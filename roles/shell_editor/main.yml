@@ -1,0 +1,11 @@
+- defaults:
+      link:
+          create: true
+          relink: true
+          force: true
+
+- link:
+    ~/.editorconfig: roles/editor-config/.shell_editor
+    ~/.vimrc: roles/editor-config/.vimrc
+    ~/.vim/colors/solarized.vim: modules/vim-colors-solarized/colors/solarized.vim
+    ~/.nanorc: roles/editor-config/.nanorc

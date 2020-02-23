@@ -1,5 +1,0 @@
-- shell:
-    - test -f ~/.hyper.js && test ! -f ~/.hyper.js.bak && mv ~/.hyper.js ~/.hyper.js.bak || true
- 
-- link:
-    ~/.hyper.js: dotfiles/unix_macos/.hyper.js

@@ -1,0 +1,41 @@
+#
+# list pack {{name}}s from `./meta/*/packs/{{name}}.yml` - see `make packs`
+#
+#- name: "site.yml"
+#  hosts: localhost
+#  connection: local
+#  gather_facts: yes
+#  tags:
+#    - preparation
+#  vars:
+#    - url: "https://galaxy.ansible.com"
+#  tasks:
+#    - name: "check network"
+#      url:
+#        url: "{{ url }}"
+#        method: HEAD
+#        return_content: no
+#        status_code: 200
+#        timeout: 60
+#        follow_redirects: all
+- name: "Run workstation roles"
+  hosts: localhost
+  gather_facts: yes
+  vars:
+    url: "https://galaxy.ansible.com"
+  include_role:
+    name: "{{ item }}"
+  loop:
+    - common
+#    - git_client
+#    - shell
+#    - shell_editor
+#    - terminal
+#    - http_client
+##    - secops
+#    - common_fonts
+
+
+#    - hardware-info-pack
+
+##### ?? #####

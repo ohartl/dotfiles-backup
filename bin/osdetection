@@ -52,13 +52,14 @@ else
     echo "Could not detect OS_BASE from OS_SHORT='$OS_SHORT'. Setting OS_BASE to value 'unknown'"
     OS_BASE="unknown"
     OS__DOTFILE_SUPPORT=0
+    exit 1
 fi
 
-echo "detected:"
-echo " - OS_BASE=${OS_BASE}"
-echo " - OS_SHORT=${OS_SHORT}"
-echo " - OS_SUBSYSTEM=${OS_SUBSYSTEM}"
-echo " - OS__DOTFILE_SUPPORT=${OS__DOTFILE_SUPPORT}"
+$QUIET || echo "detected:"
+$QUIET || echo " - OS_BASE=${OS_BASE}"
+$QUIET || echo " - OS_SHORT=${OS_SHORT}"
+$QUIET || echo " - OS_SUBSYSTEM=${OS_SUBSYSTEM}"
+$QUIET || echo " - OS__DOTFILE_SUPPORT=${OS__DOTFILE_SUPPORT}"
 
 if [[ "$OS__DOTFILE_SUPPORT" == "0" ]]; then
     echo "OS or setup currently not detectable or supported, feel free to add support yourself"

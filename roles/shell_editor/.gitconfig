@@ -1,0 +1,18 @@
+[user]
+	email = oliver@ohartl.de
+	name = ohartl
+	signingkey = EAB11EC9
+[gui]
+	encoding = utf-8
+[core]
+	autocrlf = true
+	excludesfile = E:\\.gitignore.global
+[commit]
+	gpgsign = true
+[gpg]
+	program = c:/Program Files (x86)/GnuPG/bin/gpg.exe
+[difftool "sourcetree"]
+	cmd = '' \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = true

@@ -1,0 +1,10 @@
+- defaults:
+      link:
+          create: true
+          relink: true
+          force: true
+
+- link:
+#    ~/.shell_editor: roles/editor-config/.shell_editor
+      ~/.gitconfig: .gitconfig
+      ~/.gitignore_global: .gitignore_global

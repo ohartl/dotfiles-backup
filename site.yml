@@ -1,3 +1,8 @@
+#!/usr/bin/env ansible-playbook
+---
+#- import_playbook: workstation.yml
+
 - hosts: localhost
+  vars:
   roles:
-      - { role: geerlingguy.dotfiles }
+    - { role: geerlingguy.dotfiles }

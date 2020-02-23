@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 
-
 CONFIG_SUFFIX	:=".yml"
 BASE_CONFIG		:="base"
 
@@ -36,26 +35,34 @@ VERBOSE=0
 #    esac
 #done
 
+HELP_FUNC = \
+    %help; \
+    while(<>) { \
+        if(/^([a-z0-9_-]+):.*\#\#(?:@(\w+))?\s(.*)$$/) { \
+            push(@{$$help{$$2}}, [$$1, $$3]); \
+        } \
+    }; \
+    print "usage: make [target]\n\n"; \
+    for ( sort keys %help ) { \
+        print "$$_:\n"; \
+        printf("  %-20s %s\n", $$_->[0], $$_->[1]) for @{$$help{$$_}}; \
+        print "\n"; \
+    }
+
+help: ##@miscellaneous Show this help.
+	@perl -e '$(HELP_FUNC)' $(MAKEFILE_LIST)
+
 .DEFAULT_GOAL := help
 
-.PHONY: help
-#	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
-help:           ## Show this help.
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+###############################################################################
 
+run: ## This message will show up when typing 'make help'
+	python3 /usr/bin/ansible-playbook
 
-# Everything below is an example
-
-.PHONY: target00 ## This message will show up when typing 'make help'
-target00:       ## This message will show up when typing 'make help'
-	@echo does nothing
-
-.PHONY: target01
-target01:       ## This message will also show up when typing 'make help'
-	@echo does something
+target01: ## This message will also show up when typing 'make help'
+	@echo does something $(value )
 
 # Remember that targets can have multiple entries (if your target specifications are very long, etc.)
-.PHONY: target02
-target02:       ## This message will show up too!!!
+target02:  ## This message will show up too!!!
 target02: target00 target01
 	@echo does even more

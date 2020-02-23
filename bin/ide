@@ -7,9 +7,11 @@ if [ -z "${IDE_PATH+z}" ]; then
     exit 1
 fi
 
+. "$BIN_OSDETECT"
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if [[ "$(uname -r)" =~ "Microsoft" ]]; then
-        ~/.dotfiles/dotfiles/unix_linux_wsl/bin/ide $@
+        ~/.dotfiles/dotfiles/os_wsl_linux/bin/ide $@
     else
         echo "Not yet implemented for normal linux"
         exit 1
