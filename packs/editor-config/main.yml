@@ -5,9 +5,9 @@
           force: true
 
 - link:
-    ~/.editorconfig: editor-config/.editorconfig
-    ~/.vimrc: editor-config/.vimrc
+    ~/.editorconfig: packs/editor-config/.editorconfig
+    ~/.vimrc: packs/editor-config/.vimrc
     ~/.vim/colors/solarized.vim:
         create: true
         path: modules/vim-colors-solarized/colors/solarized.vim
-    ~/.nanorc: editor-config/.nanorc
+    ~/.nanorc: packs/editor-config/.nanorc
